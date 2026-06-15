@@ -1,1301 +1,316 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Логопед: диагностика, коррекция звукопроизношения, запуск речи. Онлайн и очно." />
-  <title>Логопед • [Имя Фамилия]</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#4a5e32;
+  --accent:#7E9460;
+  --accent2:#a8bc87;
+  --bg:#f4f6f0;
+  --white:#ffffff;
+  --text:#1c2214;
+  --gray:#6b7280;
+}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;margin:0;overflow-x:hidden}
 
-  <!--
-    Версия v3: “ярко, мило, красиво” (в духе пастельных свечей/радуги)
-    - больше “конфетности”, но без потери читабельности
-    - радужные акценты, мягкие объемные карточки, “стикеры”
-    - чуть живее кнопки/ховеры + приятные детали
-    - всё по-прежнему: прогресс-бар, scroll-spy, mobile CTA, prefers-reduced-motion
-  -->
-  <style>
-    :root{
-      /* Base */
-      --bg: #fff7fb;
-      --surface: rgba(255,255,255,.78);
-      --ink: #1f2430;
-      --muted: rgba(31,36,48,.72);
-      --muted2: rgba(31,36,48,.55);
+header{background:var(--primary);color:white;padding:90px 20px 130px;text-align:center;clip-path:ellipse(150% 100% at 50% 0%);position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.35;animation:float 8s ease-in-out infinite}
+.orb1{width:400px;height:400px;background:#7E9460;top:-100px;left:-80px}
+.orb2{width:300px;height:300px;background:#a8bc87;top:20px;right:-60px;animation-delay:3s}
+.orb3{width:200px;height:200px;background:#c8d9b0;bottom:40px;left:40%;animation-delay:5s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+.hero-inner{position:relative;z-index:2}
+.hero-pill{display:inline-block;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);padding:6px 20px;border-radius:50px;font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;animation:fadeDown .8s ease both}
+header h1{font-size:3.4rem;font-weight:800;letter-spacing:-1.5px;margin-bottom:14px;animation:fadeDown .8s .15s ease both}
+header h1 span{background:linear-gradient(90deg,#c8d9b0,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+header p{font-size:1.1rem;opacity:0.8;max-width:580px;margin:0 auto;animation:fadeDown .8s .3s ease both}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
 
-      /* Candy pastel palette (inspired by the photo) */
-      --pink:  #ffb6cf;
-      --rose:  #ff8fb3;
-      --lav:   #c9a9ff;
-      --lilac: #b8b6ff;
-      --sky:   #aee7ff;
-      --mint:  #baf5d9;
-      --butter:#ffe08a;
-      --peach: #ffd1c9;
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
 
-      --stroke: rgba(31,36,48,.10);
-      --stroke2: rgba(31,36,48,.08);
+.nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:-60px;position:relative;z-index:10}
 
-      --shadow: 0 18px 55px rgba(31,36,48,.10);
-      --shadow2: 0 10px 30px rgba(31,36,48,.08);
-      --shadow3: 0 10px 0 rgba(31,36,48,.06);
+.nav-card{
+  background:var(--white);
+  padding:32px 18px 28px;
+  border-radius:22px;
+  text-align:center;
+  box-shadow:0 8px 30px rgba(74,94,50,0.10);
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  animation:popIn .6s both;
+}
+.nav-card:nth-child(1){animation-delay:.1s}
+.nav-card:nth-child(2){animation-delay:.18s}
+.nav-card:nth-child(3){animation-delay:.26s}
+.nav-card:nth-child(4){animation-delay:.34s}
+.nav-card:nth-child(5){animation-delay:.42s}
+@keyframes popIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.nav-card:hover{border-color:var(--accent);transform:translateY(-8px) scale(1.03);box-shadow:0 20px 50px rgba(74,94,50,0.18)}
+.nav-card:hover .nav-icon{transform:translateY(-3px);filter:drop-shadow(0 8px 16px rgba(74,94,50,0.30))}
 
-      --r-xl: 30px;
-      --r-lg: 22px;
-      --r-md: 14px;
+.nav-icon{
+  width:64px;height:64px;
+  margin:0 auto 16px;
+  display:block;
+  transition:all .35s ease;
+  filter:drop-shadow(0 4px 8px rgba(74,94,50,0.18));
+}
 
-      --max: 1120px;
+.nav-card h3{font-size:0.82rem;font-weight:600;color:var(--primary);margin:0;line-height:1.4}
 
-      --space-1: 8px;
-      --space-2: 12px;
-      --space-3: 16px;
-      --space-4: 22px;
-      --space-5: 30px;
-      --space-6: 44px;
-      --space-7: 64px;
-
-      --ease: cubic-bezier(.2,.8,.2,1);
-
-      /* Gradients */
-      --grad-rainbow: linear-gradient(135deg,
-        rgba(255,143,179,.95),
-        rgba(255,224,138,.95),
-        rgba(186,245,217,.95),
-        rgba(174,231,255,.95),
-        rgba(201,169,255,.95)
-      );
-
-      --grad-primary: linear-gradient(135deg,
-        rgba(255,143,179,.95),
-        rgba(201,169,255,.92),
-        rgba(174,231,255,.92)
-      );
-
-      --grad-soft: radial-gradient(closest-side at 25% 20%, rgba(255,182,207,.45), transparent 70%),
-                   radial-gradient(closest-side at 18% 82%, rgba(174,231,255,.55), transparent 72%),
-                   radial-gradient(closest-side at 88% 22%, rgba(255,224,138,.45), transparent 72%),
-                   radial-gradient(closest-side at 86% 78%, rgba(186,245,217,.45), transparent 72%);
-
-      --dot: radial-gradient(circle, rgba(31,36,48,.08) 1.1px, transparent 1.2px);
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    html{ scroll-behavior:smooth; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      color: var(--ink);
-      background: var(--bg);
-      line-height: 1.55;
-      overflow-x:hidden;
-      text-rendering: optimizeLegibility;
-    }
-
-    a{ color:inherit; text-decoration:none; }
-    .container{ width: min(var(--max), calc(100% - 40px)); margin:0 auto; }
-    .sr-only{
-      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
-      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
-    }
-
-    /* ===== Background: rainbow blobs + subtle dots ===== */
-    .page{ position:relative; isolation:isolate; }
-    .page::before{
-      content:"";
-      position:absolute; inset:-220px -220px -220px -220px;
-      z-index:-3;
-      background: var(--grad-soft);
-      filter:saturate(1.12) contrast(1.02);
-    }
-    .page::after{
-      content:"";
-      position:absolute; inset:0;
-      z-index:-2;
-      background:
-        linear-gradient(180deg, rgba(255,247,251,.35), rgba(255,247,251,.82) 35%, rgba(255,247,251,.98)),
-        var(--dot);
-      background-size: auto, 18px 18px;
-      background-position: 0 0, 0 0;
-      opacity: 1;
-      pointer-events:none;
-    }
-
-    /* ===== Announcement bar ===== */
-    .announce{
-      background: rgba(31,36,48,.92);
-      color:#fff;
-      font-size: 13px;
-    }
-    .announce .wrap{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 12px; padding: 10px 0;
-    }
-    .announce a{
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      opacity:.95;
-    }
-    .announce .k{ opacity:.92; }
-    .announce .x{
-      border:0; background: transparent; color:#fff; cursor:pointer;
-      opacity:.82; padding: 6px 10px; border-radius: 12px;
-    }
-    .announce .x:hover{ opacity:1; background: rgba(255,255,255,.10); }
-
-    /* ===== Header + progress ===== */
-    header{
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(255,247,251,.78);
-      border-bottom: 1px solid var(--stroke2);
-    }
-    .progress{
-      height: 4px;
-      background: var(--grad-rainbow);
-      transform-origin: 0 50%;
-      transform: scaleX(0);
-    }
-
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 14px; padding: 14px 0;
-    }
-
-    .brand{
-      display:flex; align-items:center; gap: 12px;
-      font-weight: 900; letter-spacing:.2px;
-    }
-
-    /* Rainbow logo “arch” */
-    .logo{
-      width: 42px; height: 42px; border-radius: 16px;
-      border: 1px solid rgba(31,36,48,.10);
-      box-shadow: var(--shadow2);
-      background:
-        radial-gradient(circle at 70% 25%, rgba(255,255,255,.95) 0 10px, transparent 11px),
-        radial-gradient(circle at 35% 70%, rgba(255,255,255,.92) 0 12px, transparent 13px),
-        linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55)),
-        conic-gradient(from 210deg,
-          rgba(255,143,179,.95),
-          rgba(255,224,138,.95),
-          rgba(186,245,217,.95),
-          rgba(174,231,255,.95),
-          rgba(201,169,255,.95),
-          rgba(255,143,179,.95)
-        );
-      position:relative;
-      overflow:hidden;
-    }
-    .logo::after{
-      content:"";
-      position:absolute; inset:8px 8px 10px 8px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.75);
-      mix-blend-mode: soft-light;
-    }
-    .logo::before{
-      /* tiny “smile” */
-      content:"";
-      position:absolute; left: 12px; right: 12px; bottom: 11px;
-      height: 10px;
-      border-bottom: 2.5px solid rgba(31,36,48,.28);
-      border-radius: 0 0 999px 999px;
-      opacity:.9;
-      transform: translateY(1px);
-    }
-
-    nav ul{
-      list-style:none; display:flex; gap: 8px;
-      padding:0; margin:0; align-items:center;
-    }
-    nav a{
-      font-size: 14px;
-      color: rgba(31,36,48,.78);
-      padding: 10px 12px;
-      border-radius: 999px;
-      transition: background .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
-      outline: none;
-    }
-    nav a:hover{
-      background: rgba(255,143,179,.14);
-      color: rgba(31,36,48,.95);
-      transform: translateY(-1px);
-    }
-    nav a[aria-current="true"]{
-      background: rgba(31,36,48,.08);
-      color: rgba(31,36,48,.95);
-    }
-
-    .nav-actions{ display:flex; gap:10px; align-items:center; }
-
-    /* Buttons: more “candy” */
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap: 10px;
-      padding: 11px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(31,36,48,.12);
-      background: rgba(255,255,255,.70);
-      box-shadow: var(--shadow2), 0 0 0 0 rgba(255,143,179,.0);
-      cursor: pointer;
-      transition: transform .15s var(--ease), box-shadow .15s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
-      font-weight: 800;
-      font-size: 14px;
-      user-select:none;
-      white-space: nowrap;
-    }
-    .btn:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 18px 35px rgba(31,36,48,.12), 0 0 0 6px rgba(255,143,179,.10);
-      border-color: rgba(255,143,179,.25);
-    }
-    .btn:active{ transform: translateY(0px); }
-
-    .btn.primary{
-      border-color: rgba(31,36,48,.06);
-      background: var(--grad-primary);
-      color: rgba(31,36,48,.95);
-      position:relative;
-      overflow:hidden;
-    }
-    .btn.primary::after{
-      content:"";
-      position:absolute; inset:-40px -40px auto auto;
-      width: 140px; height: 140px; border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.90), transparent 55%);
-      opacity:.45;
-      transform: rotate(12deg);
-      pointer-events:none;
-    }
-
-    .btn.ghost{
-      background: rgba(255,255,255,.62);
-    }
-    .btn.small{ padding: 9px 12px; font-size: 13px; border-radius: 14px; }
-
-    .burger{
-      display:none;
-      width: 44px; height: 44px; border-radius: 16px;
-      border: 1px solid rgba(31,36,48,.12);
-      background: rgba(255,255,255,.76);
-      cursor:pointer; padding: 0;
-      box-shadow: var(--shadow2);
-    }
-    .burger span{ display:block; width:18px; height:2px; background: rgba(31,36,48,.70); margin: 4px auto; border-radius: 2px; }
-
-    /* Drawer (mobile) */
-    .drawer{
-      display:none;
-      position: fixed; inset: 0;
-      background: rgba(31,36,48,.38);
-      z-index: 80;
-      padding: 70px 16px 16px;
-    }
-    .drawer .panel{
-      max-width: 520px; margin: 0 auto;
-      background: rgba(255,247,251,.92);
-      border: 1px solid var(--stroke2);
-      border-radius: 24px;
-      box-shadow: 0 30px 90px rgba(31,36,48,.18);
-      padding: 14px;
-      backdrop-filter: blur(14px);
-      position:relative;
-      overflow:hidden;
-    }
-    .drawer .panel::before{
-      content:"";
-      position:absolute; inset:-80px -80px auto auto;
-      width: 220px; height: 220px; border-radius: 999px;
-      background: var(--grad-rainbow);
-      filter: blur(16px);
-      opacity:.22;
-      pointer-events:none;
-    }
-    .drawer .panel a{
-      display:flex; justify-content:space-between; align-items:center;
-      padding: 12px 12px;
-      border-radius: 16px;
-      font-weight: 900;
-      position:relative;
-      z-index:1;
-    }
-    .drawer .panel a:hover{ background: rgba(255,143,179,.14); }
-    .drawer .panel .row{ display:flex; gap: 10px; flex-wrap: wrap; padding: 10px 12px 0; position:relative; z-index:1; }
-    .drawer .panel .row a{ padding: 10px 12px; }
-    .drawer.open{ display:block; }
-
-    /* ===== Sections ===== */
-    section{ padding: clamp(54px, 7vw, 78px) 0; }
-    section[id]{ scroll-margin-top: 92px; }
-
-    .section-head{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap: 20px; margin-bottom: 22px;
-    }
-    h1,h2,h3{ margin:0; line-height:1.08; }
-    h1{
-      font-size: clamp(34px, 4vw, 58px);
-      letter-spacing: -0.9px;
-    }
-    h2{
-      font-size: clamp(26px, 3vw, 38px);
-      letter-spacing: -0.5px;
-    }
-    .lead{
-      font-size: 16px;
-      color: var(--muted);
-      margin-top: 12px;
-      max-width: 64ch;
-    }
-
-    /* “Sticker” pill */
-    .pill{
-      display:inline-flex; align-items:center; gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(31,36,48,.12);
-      background: rgba(255,255,255,.72);
-      font-size: 13px;
-      color: rgba(31,36,48,.76);
-      white-space: nowrap;
-      box-shadow: var(--shadow2);
-      transform: rotate(-0.4deg);
-    }
-
-    .grid{ display:grid; gap: 18px; }
-    .cards-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
-    .cards-2{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .cards-4{ grid-template-columns: repeat(4, minmax(0,1fr)); }
-
-    /* Cards: softer + fun border glow */
-    .card{
-      border: 1px solid rgba(31,36,48,.10);
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      border-radius: var(--r-xl);
-      padding: 18px;
-      position: relative;
-      overflow: hidden;
-      transition: transform .18s var(--ease), box-shadow .18s var(--ease);
-    }
-    .card:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 22px 70px rgba(31,36,48,.12);
-    }
-    .card::before{
-      content:"";
-      position:absolute; inset:-70px -70px auto auto;
-      width: 190px; height: 190px; border-radius: 999px;
-      background: var(--grad-rainbow);
-      filter: blur(10px);
-      opacity: .18;
-      transform: rotate(10deg);
-      pointer-events:none;
-    }
-    .card::after{
-      content:"";
-      position:absolute; inset:0;
-      border-radius: inherit;
-      pointer-events:none;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
-      opacity:.9;
-    }
-    .card h3{ font-size: 18px; margin-bottom: 8px; letter-spacing:-0.15px; }
-    .card p{ margin:0; color: var(--muted); font-size: 14px; }
-
-    .meta{ display:flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .tag{
-      font-size: 12px; padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(31,36,48,.12);
-      background: rgba(255,255,255,.70);
-      color: rgba(31,36,48,.72);
-      box-shadow: 0 8px 18px rgba(31,36,48,.06);
-    }
-    .fine{ font-size: 12px; color: var(--muted2); }
-
-    /* ===== Hero ===== */
-    .hero{ padding: 36px 0 48px; }
-    .hero-wrap{
-      display:grid;
-      grid-template-columns: 1.22fr .78fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-    .hero-main{
-      padding: 28px;
-      border-radius: 38px;
-      border: 1px solid rgba(31,36,48,.10);
-      background: rgba(255,255,255,.78);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow:hidden;
-    }
-    .hero-main::after{
-      content:"";
-      position:absolute; left: -70px; bottom: -90px;
-      width: 520px; height: 300px; border-radius: 999px;
-      background: conic-gradient(from 210deg,
-        rgba(255,143,179,.55),
-        rgba(255,224,138,.62),
-        rgba(186,245,217,.62),
-        rgba(174,231,255,.66),
-        rgba(201,169,255,.62),
-        rgba(255,143,179,.55)
-      );
-      filter: blur(18px);
-      opacity: .34;
-      pointer-events:none;
-    }
-    .hero-main > *{ position: relative; z-index: 1; }
-
-    .hero-actions{ display:flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
-
-    .trust{
-      margin-top: 18px;
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 10px;
-    }
-    .trust .b{
-      border: 1px solid rgba(31,36,48,.10);
-      background: rgba(255,255,255,.72);
-      border-radius: 20px;
-      padding: 12px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .trust .b::before{
-      content:"";
-      position:absolute; inset:-40px auto auto -40px;
-      width: 120px; height: 120px; border-radius: 999px;
-      background: var(--grad-rainbow);
-      filter: blur(12px);
-      opacity:.16;
-      pointer-events:none;
-    }
-    .trust .b strong{ display:block; font-size: 14px; }
-    .trust .b span{ display:block; margin-top: 4px; font-size: 12px; color: var(--muted2); }
-
-    .hero-side{ display:grid; gap: 18px; }
-
-    .stat{
-      padding: 18px;
-      border-radius: 30px;
-      border: 1px solid rgba(31,36,48,.10);
-      background: rgba(255,255,255,.76);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position: relative;
-    }
-    .stat::before{
-      content:"";
-      position:absolute; inset:-60px -60px auto auto;
-      width: 200px; height: 200px; border-radius: 999px;
-      background: var(--grad-primary);
-      filter: blur(16px);
-      opacity:.16;
-      pointer-events:none;
-    }
-    .stat strong{ display:block; font-size: 22px; letter-spacing: -0.3px; position:relative; z-index:1; }
-    .stat span{ display:block; margin-top: 6px; color: var(--muted); font-size: 14px; position:relative; z-index:1; }
-
-    .photo{
-      border-radius: 30px;
-      border: 1px solid rgba(31,36,48,.10);
-      background:
-        radial-gradient(circle at 25% 25%, rgba(255,255,255,.94), transparent 60%),
-        linear-gradient(135deg, rgba(174,231,255,.86), rgba(255,182,207,.70));
-      box-shadow: var(--shadow);
-      min-height: 200px;
-      padding: 18px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap: 10px;
-      position: relative;
-      overflow:hidden;
-    }
-    .photo::after{
-      content:"";
-      position:absolute; inset:-40px -40px auto auto;
-      width: 180px; height: 180px; border-radius: 999px;
-      background: var(--grad-rainbow);
-      filter: blur(14px);
-      opacity:.20;
-      pointer-events:none;
-    }
-    .photo small{ color: var(--muted); font-size: 13px; position:relative; z-index:1; }
-    .photo .hint{ display:flex; gap:8px; flex-wrap:wrap; position:relative; z-index:1; }
-
-    /* ===== Steps ===== */
-    .steps{ counter-reset: step; }
-    .step{
-      padding: 18px;
-      border-radius: 26px;
-      border: 1px solid rgba(31,36,48,.10);
-      background: rgba(255,255,255,.76);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow:hidden;
-    }
-    .step::before{
-      counter-increment: step;
-      content: counter(step);
-      position:absolute; top: 14px; right: 14px;
-      width: 36px; height: 36px;
-      display:grid; place-items:center;
-      border-radius: 999px;
-      border: 1px solid rgba(31,36,48,.12);
-      background: var(--grad-rainbow);
-      color: rgba(31,36,48,.78);
-      font-weight: 950;
-      font-size: 13px;
-      box-shadow: 0 10px 24px rgba(31,36,48,.10);
-    }
-    .step h3{ margin-bottom: 8px; }
-
-    /* ===== Pricing ===== */
-    .price{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 12px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed rgba(31,36,48,.16);
-    }
-    .price strong{ font-size: 22px; letter-spacing: -0.2px; }
-    .price span{ color: var(--muted2); font-size: 13px; }
-
-    /* ===== Testimonials ===== */
-    .quote{ display:flex; flex-direction:column; gap: 10px; }
-    .quote p{ margin:0; font-size: 14px; color: rgba(31,36,48,.80); }
-    .who{
-      display:flex; align-items:center; gap: 10px;
-      margin-top: 6px; color: var(--muted);
-      font-size: 13px;
-    }
-    .avatar{
-      width: 34px; height: 34px; border-radius: 14px;
-      border: 1px solid rgba(31,36,48,.12);
-      background:
-        radial-gradient(circle at 30% 30%, #fff 0 10px, transparent 11px),
-        conic-gradient(from 210deg,
-          rgba(255,143,179,.95),
-          rgba(255,224,138,.95),
-          rgba(186,245,217,.95),
-          rgba(174,231,255,.95),
-          rgba(201,169,255,.95),
-          rgba(255,143,179,.95)
-        );
-      box-shadow: 0 10px 20px rgba(31,36,48,.10);
-      position:relative;
-      overflow:hidden;
-    }
-    .avatar::after{
-      content:"";
-      position:absolute; left: 9px; right: 9px; bottom: 9px;
-      height: 9px;
-      border-bottom: 2px solid rgba(31,36,48,.28);
-      border-radius: 0 0 999px 999px;
-      opacity:.9;
-    }
-
-    /* ===== Cases ===== */
-    .case{
-      padding: 18px;
-      border-radius: 26px;
-      border: 1px solid rgba(31,36,48,.10);
-      background: rgba(255,255,255,.76);
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .case::before{
-      content:"";
-      position:absolute; inset:-90px auto auto -90px;
-      width: 240px; height: 240px; border-radius: 999px;
-      background: var(--grad-rainbow);
-      filter: blur(18px);
-      opacity:.14;
-      pointer-events:none;
-    }
-    .case .line{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
-      position:relative;
-      z-index:1;
-    }
-    .case .k{
-      border: 1px solid rgba(31,36,48,.10);
-      background: rgba(255,255,255,.72);
-      border-radius: 20px;
-      padding: 12px;
-      box-shadow: 0 12px 22px rgba(31,36,48,.06);
-    }
-    .case .k strong{ display:block; font-size: 13px; }
-    .case .k span{ display:block; margin-top: 6px; font-size: 13px; color: var(--muted); }
-
-    /* ===== FAQ ===== */
-    details{
-      border: 1px solid rgba(31,36,48,.10);
-      border-radius: 20px;
-      background: rgba(255,255,255,.78);
-      box-shadow: var(--shadow);
-      padding: 14px 16px;
-      position:relative;
-      overflow:hidden;
-    }
-    details::before{
-      content:"";
-      position:absolute; inset:-80px -80px auto auto;
-      width: 220px; height: 220px; border-radius: 999px;
-      background: var(--grad-rainbow);
-      filter: blur(16px);
-      opacity:.10;
-      pointer-events:none;
-    }
-    details + details{ margin-top: 10px; }
-    summary{
-      cursor: pointer;
-      font-weight: 900;
-      color: rgba(31,36,48,.92);
-      list-style: none;
-      outline: none;
-      position:relative;
-      z-index:1;
-    }
-    summary::-webkit-details-marker{ display:none; }
-    details p{ margin: 10px 0 0; color: var(--muted); font-size: 14px; position:relative; z-index:1; }
-
-    /* ===== Contact ===== */
-    .contact{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    form{ display:grid; gap: 10px; }
-    input, textarea{
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(31,36,48,.12);
-      background: rgba(255,255,255,.82);
-      font: inherit;
-      outline: none;
-      box-shadow: 0 10px 20px rgba(31,36,48,.05);
-      transition: box-shadow .15s var(--ease), border-color .15s var(--ease);
-    }
-    textarea{ min-height: 110px; resize: vertical; }
-    input:focus, textarea:focus{
-      border-color: rgba(255,143,179,.55);
-      box-shadow: 0 0 0 5px rgba(255,143,179,.16), 0 14px 26px rgba(31,36,48,.08);
-    }
-
-    /* ===== Footer ===== */
-    footer{ padding: 28px 0 88px; color: var(--muted2); font-size: 13px; }
-    .footer{
-      display:flex; justify-content:space-between;
-      gap: 18px; flex-wrap: wrap;
-      border-top: 1px solid var(--stroke2);
-      padding-top: 18px;
-    }
-
-    /* ===== Bottom bar (mobile CTA) ===== */
-    .bottom-bar{
-      position: fixed; left: 0; right: 0; bottom: 0;
-      z-index: 70;
-      padding: 10px 12px;
-      display:none;
-    }
-    .bottom-bar .inner{
-      width: min(var(--max), calc(100% - 24px));
-      margin: 0 auto;
-      display:flex; gap: 10px;
-      border: 1px solid rgba(31,36,48,.10);
-      background: rgba(255,247,251,.86);
-      backdrop-filter: blur(14px);
-      border-radius: 20px;
-      padding: 10px;
-      box-shadow: 0 24px 80px rgba(31,36,48,.18);
-      position:relative;
-      overflow:hidden;
-    }
-    .bottom-bar .inner::before{
-      content:"";
-      position:absolute; inset:-80px -80px auto auto;
-      width: 240px; height: 240px; border-radius: 999px;
-      background: var(--grad-rainbow);
-      filter: blur(18px);
-      opacity:.14;
-      pointer-events:none;
-    }
-    .bottom-bar .inner a{ flex:1; position:relative; z-index:1; }
-
-    /* ===== Focus styles ===== */
-    :focus-visible{
-      outline: 3px solid rgba(255,143,179,.55);
-      outline-offset: 2px;
-      border-radius: 14px;
-    }
-
-    /* ===== Reduce motion ===== */
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior: auto; }
-      *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
-    }
-
-    /* ===== Responsiveness ===== */
-    @media (max-width: 980px){
-      .hero-wrap{ grid-template-columns: 1fr; }
-      .trust{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .cards-3{ grid-template-columns: 1fr; }
-      .cards-4{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .cards-2{ grid-template-columns: 1fr; }
-      .contact{ grid-template-columns: 1fr; }
-      .case .line{ grid-template-columns: 1fr; }
-
-      nav ul{ display:none; }
-      .burger{ display:inline-grid; place-items:center; }
-      .bottom-bar{ display:block; }
-    }
-    @media (max-width: 520px){
-      .container{ width: min(var(--max), calc(100% - 28px)); }
-      .hero-main{ padding: 22px; }
-      .hero{ padding-top: 22px; }
-    }
-  </style>
+/* Articles */
+.content-section{margin:80px 0}
+.article-card{background:var(--white);border-radius:28px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.04);margin-bottom:40px;border:1px solid rgba(126,148,96,0.12);transition:box-shadow .35s,transform .35s;animation:slideUp .7s both}
+.article-card:nth-of-type(2){animation-delay:.2s}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.article-card:hover{box-shadow:0 16px 50px rgba(74,94,50,0.14);transform:translateY(-4px)}
+.article-card::before{content:'';display:block;height:4px;background:linear-gradient(90deg,var(--primary),var(--accent),var(--accent2));background-size:200% 100%;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.article-body{padding:40px}
+.article-tag{display:inline-block;background:#eef2e8;color:var(--primary);padding:5px 16px;border-radius:50px;font-size:0.75rem;font-weight:700;letter-spacing:0.5px}
+.article-body h2{font-size:1.9rem;font-weight:800;color:var(--primary);margin:16px 0;letter-spacing:-0.5px;line-height:1.25}
+.article-body p{color:var(--gray);font-size:0.95rem}
+.article-body ul{padding-left:0;list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.article-body ul li{display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--gray)}
+.article-body ul li::before{content:'✓';width:22px;height:22px;background:linear-gradient(135deg,var(--accent),var(--primary));color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;flex-shrink:0}
+.read-more{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:700;font-size:0.88rem;text-decoration:none;margin-top:12px}
+.expert-footer{background:linear-gradient(135deg,#f7f9f4,#eef3e8);padding:28px 40px;border-top:1px solid rgba(126,148,96,0.15);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.expert-info{display:flex;align-items:center}
+.expert-photo{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,#c8d9b0,#7E9460);margin-right:18px;border:3px solid var(--white);box-shadow:0 4px 16px rgba(74,94,50,0.25);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--white);font-size:1.1rem}
+.expert-name{font-weight:700;color:var(--primary);margin:0;font-size:0.95rem}
+.expert-pos{font-size:0.78rem;color:var(--gray);margin:3px 0 0}
+.btn-book{background:linear-gradient(135deg,var(--primary),var(--accent));color:white;padding:14px 28px;border:none;border-radius:14px;font-family:'Montserrat';font-weight:700;font-size:0.85rem;cursor:pointer;white-space:nowrap;transition:all .3s}
+.btn-book:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(74,94,50,0.4)}
+@media(max-width:768px){
+  header h1{font-size:2.1rem}
+  .expert-footer{flex-direction:column;align-items:flex-start}
+  .expert-info{flex-direction:column;align-items:center;text-align:center}
+  .expert-photo{margin-right:0;margin-bottom:12px}
+  .btn-book{width:100%}
+  .article-body{padding:24px}
+  .article-body h2{font-size:1.4rem}
+}
+</style>
 </head>
-
 <body>
-  <div class="page" id="top">
-    <div class="announce" id="announce">
-      <div class="container">
-        <div class="wrap">
-          <div class="k">🎁 <b>Бесплатная</b> 15-мин консультация: подскажу, нужно ли к логопеду и с чего начать.</div>
-          <div style="display:flex;gap:10px;align-items:center;">
-            <a href="#contact">Записаться</a>
-            <button class="x" type="button" id="closeAnnounce" aria-label="Закрыть">✕</button>
-          </div>
-        </div>
-      </div>
+
+<header>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-inner">
+    <div class="hero-pill">Клиника «Белоостров»</div>
+    <h1>Онко-<span>Навигатор</span></h1>
+    <p>Ваш персональный путеводитель по лечению и жизни после диагноза</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="nav-grid">
+
+    <!-- 1. Диалог / вопросы — строгий чат с пульсом -->
+    <div class="nav-card">
+      <svg class="nav-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="plate1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8f0e0"/>
+            <stop offset="100%" stop-color="#c8d8b0"/>
+          </linearGradient>
+          <linearGradient id="stroke1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7E9460"/>
+            <stop offset="100%" stop-color="#3a4d28"/>
+          </linearGradient>
+        </defs>
+        <!-- подложка-плашка -->
+        <rect x="4" y="6" width="56" height="40" rx="10" fill="url(#plate1)"/>
+        <!-- рамка -->
+        <rect x="4" y="6" width="56" height="40" rx="10" stroke="url(#stroke1)" stroke-width="2"/>
+        <!-- хвостик -->
+        <path d="M14 46 L10 58 L26 48" fill="url(#plate1)" stroke="url(#stroke1)" stroke-width="1.8" stroke-linejoin="round"/>
+        <!-- ЭКГ-линия -->
+        <polyline points="10,26 20,26 24,14 28,38 33,20 37,26 54,26"
+          stroke="url(#stroke1)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <h3>Ответы на самые важные вопросы</h3>
     </div>
 
-    <header id="header">
-      <div class="progress" id="progress" aria-hidden="true"></div>
-      <div class="container">
-        <div class="nav">
-          <a class="brand" href="#top" aria-label="На главную">
-            <span class="logo" aria-hidden="true"></span>
-            <span>Логопед • <span style="opacity:.75">[Имя]</span></span>
-          </a>
-
-          <nav aria-label="Навигация">
-            <ul>
-              <li><a href="#about">Обо мне</a></li>
-              <li><a href="#help">С чем помогаю</a></li>
-              <li><a href="#how">Как проходит</a></li>
-              <li><a href="#price">Стоимость</a></li>
-              <li><a href="#reviews">Отзывы</a></li>
-              <li><a href="#cases">Кейсы</a></li>
-              <li><a href="#faq">FAQ</a></li>
-              <li><a href="#contact">Контакты</a></li>
-            </ul>
-          </nav>
-
-          <div class="nav-actions">
-            <button class="btn ghost" id="btnScrollContact" type="button">Задать вопрос</button>
-            <a class="btn primary" href="#contact">Записаться</a>
-            <button class="burger" id="burger" type="button" aria-label="Открыть меню">
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- mobile drawer -->
-    <div class="drawer" id="drawer" aria-hidden="true">
-      <div class="panel" role="dialog" aria-modal="true" aria-label="Меню">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px 10px;position:relative;z-index:1;">
-          <div style="font-weight:950;">Навигация</div>
-          <button class="btn small" id="closeDrawer" type="button">Закрыть</button>
-        </div>
-        <a href="#about">Обо мне <span>→</span></a>
-        <a href="#help">С чем помогаю <span>→</span></a>
-        <a href="#how">Как проходит <span>→</span></a>
-        <a href="#price">Стоимость <span>→</span></a>
-        <a href="#reviews">Отзывы <span>→</span></a>
-        <a href="#cases">Кейсы <span>→</span></a>
-        <a href="#faq">FAQ <span>→</span></a>
-        <a href="#contact">Контакты <span>→</span></a>
-        <div class="row">
-          <a class="btn small" href="https://t.me/username" target="_blank" rel="noreferrer">Telegram</a>
-          <a class="btn small" href="https://wa.me/79999999999" target="_blank" rel="noreferrer">WhatsApp</a>
-          <a class="btn small" href="tel:+79999999999">Позвонить</a>
-        </div>
-      </div>
+    <!-- 2. Обследования — молекула/ДНК с лупой -->
+    <div class="nav-card">
+      <svg class="nav-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="plate2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8f0e0"/>
+            <stop offset="100%" stop-color="#c8d8b0"/>
+          </linearGradient>
+          <linearGradient id="stroke2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7E9460"/>
+            <stop offset="100%" stop-color="#3a4d28"/>
+          </linearGradient>
+        </defs>
+        <!-- лупа — кольцо -->
+        <circle cx="26" cy="26" r="16" stroke="url(#stroke2)" stroke-width="2.5" fill="url(#plate2)"/>
+        <!-- крест внутри (прицел) -->
+        <line x1="26" y1="16" x2="26" y2="36" stroke="url(#stroke2)" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="16" y1="26" x2="36" y2="26" stroke="url(#stroke2)" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- маленькая молекула-точка -->
+        <circle cx="26" cy="26" r="3.5" fill="url(#stroke2)"/>
+        <!-- ручка лупы -->
+        <line x1="38" y1="38" x2="56" y2="56" stroke="url(#stroke2)" stroke-width="3.5" stroke-linecap="round"/>
+        <rect x="37" y="36" width="6" height="8" rx="2" transform="rotate(45 40 40)" fill="url(#stroke2)" opacity="0.4"/>
+      </svg>
+      <h3>Руководство по обследованиям</h3>
     </div>
 
-    <main>
-      <section class="hero" aria-label="Первый экран">
-        <div class="container">
-          <div class="hero-wrap">
-            <div class="hero-main">
-              <span class="pill">🌈 Мягко • Научно • С результатом</span>
-
-              <h1 style="margin-top:14px;">
-                Помогаю речи звучать<br/>свободно и уверенно
-              </h1>
-
-              <p class="lead">
-                Диагностика, коррекция звукопроизношения, запуск речи, развитие фонематического слуха.
-                Очно в <b>[город]</b> и онлайн по всему миру.
-              </p>
-
-              <div class="hero-actions">
-                <a class="btn primary" href="#contact">Записаться на диагностику</a>
-                <a class="btn ghost" href="#how">Посмотреть, как проходит</a>
-              </div>
-
-              <div class="trust" aria-label="Коротко о доверии">
-                <div class="b"><strong>План за 1 встречу</strong><span>Что делать и зачем — без тумана</span></div>
-                <div class="b"><strong>5–10 минут домашки</strong><span>Без “войн” и ультиматумов</span></div>
-                <div class="b"><strong>Отчёт родителям</strong><span>Что сделали, что закреплять</span></div>
-                <div class="b"><strong>Онлайн и очно</strong><span>Подберём формат под задачу</span></div>
-              </div>
-
-              <div class="meta" style="margin-top:14px;">
-                <span class="tag">🎯 Индивидуальный план</span>
-                <span class="tag">🧩 Игровые методики</span>
-                <span class="tag">📎 Домашки без боли</span>
-                <span class="tag">🫶 Поддержка родителям</span>
-              </div>
-            </div>
-
-            <div class="hero-side" aria-label="Факты">
-              <div class="stat">
-                <strong>[7]+ лет</strong>
-                <span>практики и регулярного обучения</span>
-              </div>
-              <div class="stat">
-                <strong>[300]+ занятий</strong>
-                <span>в онлайн-формате и очно</span>
-              </div>
-
-              <div class="photo" role="note" aria-label="Блок для фото">
-                <div style="position:relative;z-index:1;">
-                  <strong style="font-size:16px;">Фото: кабинет / портрет / процесс</strong>
-                  <small>Если нет фото — можно оставить как есть. Но 1 портрет + 2 атмосферы дадут +50% доверия.</small>
-                </div>
-                <div class="hint">
-                  <span class="tag">📸 3–5 фото</span>
-                  <span class="tag">🪄 мягкий свет</span>
-                  <span class="tag">🧼 чистый фон</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about">
-        <div class="container">
-          <div class="section-head">
-            <div>
-              <h2>Обо мне</h2>
-              <p class="lead">Коротко, по делу, но с человеческим теплом — чтобы доверие возникло быстро.</p>
-            </div>
-            <span class="pill">🎓 [образование] • 🏅 [сертификаты]</span>
-          </div>
-
-          <div class="grid cards-3">
-            <div class="card">
-              <h3>Подход</h3>
-              <p>Совмещаю доказательные техники, игру и системность. Без “повторяй 100 раз” — больше про смысл, контакт и мотивацию.</p>
-              <div class="meta">
-                <span class="tag">нейроподход</span>
-                <span class="tag">логопедический массаж*</span>
-              </div>
-              <p class="fine" style="margin-top:10px;">*если применяете — иначе уберите.</p>
-            </div>
-            <div class="card">
-              <h3>Кому подойдёт</h3>
-              <p>Детям (обычно 3–10 лет) и взрослым: постановка звуков, дикция, темп речи, подготовка к школе.</p>
-              <div class="meta">
-                <span class="tag">дети</span>
-                <span class="tag">взрослые</span>
-                <span class="tag">школа</span>
-              </div>
-            </div>
-            <div class="card">
-              <h3>Как измеряем прогресс</h3>
-              <p>Диагностика → понятные цели → мини-срезы. Родителям — короткий отчёт “что делали и зачем”.</p>
-              <div class="meta">
-                <span class="tag">диагностика</span>
-                <span class="tag">план</span>
-                <span class="tag">отчёт</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="help">
-        <div class="container">
-          <div class="section-head">
-            <div>
-              <h2>С чем помогаю</h2>
-              <p class="lead">Витрина: чтобы быстро понять “это про нас”.</p>
-            </div>
-            <span class="pill">🧁 Не магия. Практика.</span>
-          </div>
-
-          <div class="grid cards-4">
-            <div class="card">
-              <h3>Звуки</h3>
-              <p>Постановка и автоматизация: Р, Л, Ш/Ж, С/З и др.</p>
-            </div>
-            <div class="card">
-              <h3>Запуск речи</h3>
-              <p>Понимание речи, первые слова, фраза, расширение словаря.</p>
-            </div>
-            <div class="card">
-              <h3>Фонематический слух</h3>
-              <p>Различение звуков, подготовка к чтению и письму.</p>
-            </div>
-            <div class="card">
-              <h3>Дикция и темп</h3>
-              <p>Чётче, спокойнее, увереннее. Подходит и подросткам, и взрослым.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="how">
-        <div class="container">
-          <div class="section-head">
-            <div>
-              <h2>Как проходит занятие</h2>
-              <p class="lead">Понятный процесс снижает тревогу и повышает “да, давайте”.</p>
-            </div>
-            <span class="pill">⏱️ 45–60 минут</span>
-          </div>
-
-          <div class="grid cards-3 steps">
-            <div class="step">
-              <h3>Диагностика</h3>
-              <p>Смотрим речевой профиль, причины трудностей, формируем цель (реалистичную и измеримую).</p>
-            </div>
-            <div class="step">
-              <h3>Работа по плану</h3>
-              <p>Упражнения, игры, артикуляция, слух, автоматизация. Двигаемся от простого к устойчивому.</p>
-            </div>
-            <div class="step">
-              <h3>Домашняя практика</h3>
-              <p>Коротко и выполнимо: 5–10 минут. Я объясняю “как” и “зачем”, чтобы дома не было войны.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="price">
-        <div class="container">
-          <div class="section-head">
-            <div>
-              <h2>Форматы и стоимость</h2>
-              <p class="lead">Чётко: что входит, сколько длится, какие правила переносов.</p>
-            </div>
-            <span class="pill">💳 Оплата: [карта/наличные/перевод]</span>
-          </div>
-
-          <div class="grid cards-3">
-            <div class="card">
-              <h3>Диагностика</h3>
-              <p>Первичная встреча: анализ, рекомендации, план на 4 недели.</p>
-              <div class="price">
-                <strong>[____] ₽</strong>
-                <span>60 минут</span>
-              </div>
-            </div>
-
-            <div class="card">
-              <h3>Индивидуальное занятие</h3>
-              <p>Коррекция звуков / запуск речи / дикция. Задания под ребёнка и вашу реальность.</p>
-              <div class="price">
-                <strong>[____] ₽</strong>
-                <span>45–60 минут</span>
-              </div>
-            </div>
-
-            <div class="card">
-              <h3>Пакет (выгоднее)</h3>
-              <p>Например: 8 занятий + чат-поддержка + материалы.</p>
-              <div class="price">
-                <strong>[____] ₽</strong>
-                <span>8 занятий</span>
-              </div>
-            </div>
-          </div>
-
-          <p class="fine" style="margin-top:12px;">
-            Условия: перенос за [24] часа, отмена — [правило], пропуск без предупреждения — занятие считается проведённым.
-          </p>
-        </div>
-      </section>
-
-      <section id="reviews">
-        <div class="container">
-          <div class="section-head">
-            <div>
-              <h2>Отзывы</h2>
-              <p class="lead">Лучше меньше, но конкретнее: “что было → что стало”.</p>
-            </div>
-            <span class="pill">⭐️ 4.9 / 5 (по ощущениям родителей)</span>
-          </div>
-
-          <div class="grid cards-3">
-            <div class="card quote">
-              <p>“Звук Р появился без слёз и уговоров. Очень понравилось, что вы объясняете, что именно мы тренируем и почему.”</p>
-              <div class="who"><span class="avatar" aria-hidden="true"></span> Мама Кати, 6 лет</div>
-            </div>
-            <div class="card quote">
-              <p>“Сын начал говорить фразами. Домашние задания короткие, но регулярные — и это реально работает.”</p>
-              <div class="who"><span class="avatar" aria-hidden="true"></span> Папа Артёма, 4 года</div>
-            </div>
-            <div class="card quote">
-              <p>“Как взрослому мне важно было без сюсюканья. Стало чётче, увереннее — и на работе заметили.”</p>
-              <div class="who"><span class="avatar" aria-hidden="true"></span> Анна, 29 лет</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="cases">
-        <div class="container">
-          <div class="section-head">
-            <div>
-              <h2>Кейсы</h2>
-              <p class="lead">Не “мы молодцы”, а живые мини-истории: запрос → план → результат.</p>
-            </div>
-            <span class="pill">🧾 можно анонимно</span>
-          </div>
-
-          <div class="grid cards-3">
-            <div class="case">
-              <h3 style="margin:0 0 8px;position:relative;z-index:1;">Звук «Р»</h3>
-              <p style="margin:0;color:var(--muted);font-size:14px;position:relative;z-index:1;">Возраст: 6 лет • Старт: замены/пропуски</p>
-              <div class="line">
-                <div class="k"><strong>Сделали</strong><span>артикуляция → постановка → автоматизация в слогах/словах</span></div>
-                <div class="k"><strong>Результат</strong><span>«Р» в речи устойчиво через [N] недель + домашка 7 минут</span></div>
-              </div>
-            </div>
-
-            <div class="case">
-              <h3 style="margin:0 0 8px;position:relative;z-index:1;">Запуск речи</h3>
-              <p style="margin:0;color:var(--muted);font-size:14px;position:relative;z-index:1;">Возраст: 3,8 • Старт: отдельные слова</p>
-              <div class="line">
-                <div class="k"><strong>Сделали</strong><span>понимание → мотивация → фраза → расширение словаря</span></div>
-                <div class="k"><strong>Результат</strong><span>фраза, просьбы, больше инициативы в общении</span></div>
-              </div>
-            </div>
-
-            <div class="case">
-              <h3 style="margin:0 0 8px;position:relative;z-index:1;">Дикция/темп</h3>
-              <p style="margin:0;color:var(--muted);font-size:14px;position:relative;z-index:1;">Возраст: 29 • Старт: “глотаю окончания”</p>
-              <div class="line">
-                <div class="k"><strong>Сделали</strong><span>дыхание, темп, артикуляция, речевые “якоря”</span></div>
-                <div class="k"><strong>Результат</strong><span>чётче звучание + меньше напряжения на выступлениях</span></div>
-              </div>
-            </div>
-          </div>
-
-          <p class="fine" style="margin-top:12px;">
-            Если хотите — добавим 1 короткое видео (10–20 сек) “как проходит занятие”: это сильно повышает конверсию.
-          </p>
-        </div>
-      </section>
-
-      <section id="faq">
-        <div class="container">
-          <div class="section-head">
-            <div>
-              <h2>FAQ</h2>
-              <p class="lead">Про сроки, онлайн, “не усидит” — всё сюда.</p>
-            </div>
-            <span class="pill">🧠 Спрашивать — нормально</span>
-          </div>
-
-          <div class="grid">
-            <details>
-              <summary>Сколько нужно занятий, чтобы поставить звук?</summary>
-              <p>Зависит от причины (артикуляция, тонус, слух, привычка) и регулярности практики. Часто первые устойчивые результаты — от 4–8 занятий + короткая домашняя практика.</p>
-            </details>
-
-            <details>
-              <summary>Онлайн реально работает?</summary>
-              <p>Да, во многих задачах (автоматизация, слух, чтение, темп, дикция) онлайн отлично заходит. Если нужны ручные техники — лучше очно.</p>
-            </details>
-
-            <details>
-              <summary>Ребёнок неусидчивый — что делать?</summary>
-              <p>Это не баг, это характер 🙂 Занятие строится короткими сменами активности: “двигаться → говорить → играть → закреплять”.</p>
-            </details>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact">
-        <div class="container">
-          <div class="section-head">
-            <div>
-              <h2>Контакты</h2>
-              <p class="lead">Оставьте заявку — и я отвечу в течение [X] часов.</p>
-            </div>
-            <span class="pill">📍 [адрес/район] • 🕒 [график]</span>
-          </div>
-
-          <div class="contact">
-            <div class="card">
-              <h3>Написать мне</h3>
-              <p style="margin-bottom:12px;">Выбирайте удобный способ — я на связи:</p>
-
-              <div class="grid cards-2" style="gap:12px;">
-                <a class="btn" href="https://t.me/username" target="_blank" rel="noreferrer">Telegram</a>
-                <a class="btn" href="https://wa.me/79999999999" target="_blank" rel="noreferrer">WhatsApp</a>
-                <a class="btn" href="mailto:hello@example.com">Email</a>
-                <a class="btn" href="tel:+79999999999">Позвонить</a>
-              </div>
-
-              <p class="fine" style="margin-top:12px;">
-                Подсказка: номер WhatsApp — в формате 7XXXXXXXXXX. Можно добавить кнопку “Проверить речь” (мини-диагностика) как у крупных школ.
-              </p>
-            </div>
-
-            <div class="card">
-              <h3>Мини-заявка</h3>
-              <p style="margin-bottom:12px;">Я прочитаю и отвечу. Спама не будет — я логопед, а не рассылка.</p>
-
-              <form id="leadForm">
-                <input name="name" placeholder="Ваше имя" autocomplete="name" />
-                <input name="contact" placeholder="Телефон или @ник" autocomplete="tel" />
-                <textarea name="msg" placeholder="Коротко: возраст, запрос, что уже пробовали"></textarea>
-
-                <button class="btn primary" type="submit">Отправить</button>
-                <div class="fine">Нажимая “Отправить”, вы соглашаетесь с обработкой персональных данных.</div>
-                <div class="fine" id="formStatus" role="status" aria-live="polite"></div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer>
-        <div class="container">
-          <div class="footer">
-            <div>© <span id="year"></span> [Имя Фамилия], логопед</div>
-            <div class="fine">Информация на сайте не является медицинской консультацией. При необходимости обратитесь к врачу.</div>
-          </div>
-        </div>
-      </footer>
-    </main>
-
-    <!-- Bottom bar for mobile -->
-    <div class="bottom-bar" aria-hidden="false">
-      <div class="inner">
-        <a class="btn ghost" href="https://t.me/username" target="_blank" rel="noreferrer">Написать</a>
-        <a class="btn primary" href="#contact">Записаться</a>
-      </div>
+    <!-- 3. Технологии — процессор/чип с пульсом -->
+    <div class="nav-card">
+      <svg class="nav-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="plate3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8f0e0"/>
+            <stop offset="100%" stop-color="#c8d8b0"/>
+          </linearGradient>
+          <linearGradient id="stroke3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7E9460"/>
+            <stop offset="100%" stop-color="#3a4d28"/>
+          </linearGradient>
+        </defs>
+        <!-- корпус чипа -->
+        <rect x="16" y="16" width="32" height="32" rx="6" fill="url(#plate3)" stroke="url(#stroke3)" stroke-width="2"/>
+        <!-- ядро -->
+        <rect x="23" y="23" width="18" height="18" rx="3" fill="none" stroke="url(#stroke3)" stroke-width="1.5"/>
+        <!-- пины сверху -->
+        <line x1="23" y1="16" x2="23" y2="10" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="32" y1="16" x2="32" y2="10" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="41" y1="16" x2="41" y2="10" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <!-- пины снизу -->
+        <line x1="23" y1="48" x2="23" y2="54" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="32" y1="48" x2="32" y2="54" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="41" y1="48" x2="41" y2="54" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <!-- пины слева -->
+        <line x1="16" y1="23" x2="10" y2="23" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="32" x2="10" y2="32" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="41" x2="10" y2="41" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <!-- пины справа -->
+        <line x1="48" y1="23" x2="54" y2="23" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="48" y1="32" x2="54" y2="32" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="48" y1="41" x2="54" y2="41" stroke="url(#stroke3)" stroke-width="2" stroke-linecap="round"/>
+        <!-- точка питания -->
+        <circle cx="32" cy="32" r="4" fill="url(#stroke3)"/>
+      </svg>
+      <h3>Технологии будущего в лечении</h3>
     </div>
+
+    <!-- 4. Жизнь после — листок с росток -->
+    <div class="nav-card">
+      <svg class="nav-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="plate4" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8f0e0"/>
+            <stop offset="100%" stop-color="#c8d8b0"/>
+          </linearGradient>
+          <linearGradient id="stroke4" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7E9460"/>
+            <stop offset="100%" stop-color="#3a4d28"/>
+          </linearGradient>
+        </defs>
+        <!-- стебель -->
+        <path d="M32 58 C32 58 32 32 32 20" stroke="url(#stroke4)" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- левый лист -->
+        <path d="M32 36 C32 36 16 32 12 18 C12 18 28 16 32 36Z" fill="url(#plate4)" stroke="url(#stroke4)" stroke-width="1.8" stroke-linejoin="round"/>
+        <!-- прожилка левого листа -->
+        <path d="M32 36 C24 30 18 22 12 18" stroke="url(#stroke4)" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <!-- правый лист -->
+        <path d="M32 26 C32 26 48 22 52 8 C52 8 36 6 32 26Z" fill="url(#plate4)" stroke="url(#stroke4)" stroke-width="1.8" stroke-linejoin="round"/>
+        <!-- прожилка правого листа -->
+        <path d="M32 26 C40 20 46 12 52 8" stroke="url(#stroke4)" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <!-- земля / основание -->
+        <path d="M20 58 Q32 54 44 58" stroke="url(#stroke4)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </svg>
+      <h3>Как жить с диагнозом и после</h3>
+    </div>
+
+    <!-- 5. Истории победы — кубок/медаль -->
+    <div class="nav-card">
+      <svg class="nav-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="plate5" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8f0e0"/>
+            <stop offset="100%" stop-color="#c8d8b0"/>
+          </linearGradient>
+          <linearGradient id="stroke5" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7E9460"/>
+            <stop offset="100%" stop-color="#3a4d28"/>
+          </linearGradient>
+        </defs>
+        <!-- ножка -->
+        <rect x="28" y="42" width="8" height="12" rx="2" fill="url(#plate5)" stroke="url(#stroke5)" stroke-width="1.8"/>
+        <!-- основание -->
+        <rect x="20" y="52" width="24" height="5" rx="2.5" fill="url(#plate5)" stroke="url(#stroke5)" stroke-width="1.8"/>
+        <!-- тело кубка -->
+        <path d="M16 10 L48 10 L44 42 L20 42 Z" fill="url(#plate5)" stroke="url(#stroke5)" stroke-width="2" stroke-linejoin="round"/>
+        <!-- ручки кубка -->
+        <path d="M16 14 C8 14 8 30 16 30" stroke="url(#stroke5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M48 14 C56 14 56 30 48 30" stroke="url(#stroke5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- галочка внутри -->
+        <polyline points="23,26 29,32 41,18" stroke="url(#stroke5)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <h3>Истории тех, кто победил</h3>
+    </div>
+
   </div>
 
-  <script>
-    // Helpers
-    const scrollToId = (id) => {
-      const el = document.querySelector(id);
-      if (!el) return;
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
+  <section class="content-section">
 
-    // Header actions
-    document.getElementById("btnScrollContact").addEventListener("click", () => scrollToId("#contact"));
+    <div class="article-card">
+      <div class="article-body">
+        <span class="article-tag">Технологии борьбы</span>
+        <h2>Роботизированная хирургия Da Vinci: ювелирная точность против рака</h2>
+        <p>В клинике «Белоостров» мы применяем последние поколения роботов-ассистентов. Это позволяет проводить сложнейшие операции через проколы в несколько миллиметров. Для пациента это означает отсутствие шрамов, минимальный риск осложнений и возвращение домой уже через 3–4 дня.</p>
+        <ul>
+          <li>Сохранение здоровых тканей и нервных окончаний</li>
+          <li>Отсутствие кровопотери</li>
+          <li>3D-визуализация опухоли с 10-кратным увеличением</li>
+        </ul>
+      </div>
+      <div class="expert-footer">
+        <div class="expert-info">
+          <div class="expert-photo">ПР</div>
+          <div>
+            <p class="expert-name">Павел Олегович Румянцев</p>
+            <p class="expert-pos">Доктор медицинских наук, врач-онколог, эксперт клиники «Белоостров»</p>
+          </div>
+        </div>
+        <button class="btn-book">Записаться на консилиум</button>
+      </div>
+    </div>
 
-    // Announcement close (session)
-    const announce = document.getElementById("announce");
-    const closeAnnounce = document.getElementById("closeAnnounce");
-    if (sessionStorage.getItem("hideAnnounce") === "1") announce.style.display = "none";
-    closeAnnounce.addEventListener("click", () => {
-      announce.style.display = "none";
-      sessionStorage.setItem("hideAnnounce", "1");
-    });
+    <div class="article-card">
+      <div class="article-body">
+        <span class="article-tag" style="background:#fff8ec;color:#b45309">История победы</span>
+        <h2>«Я снова танцую»: история Елены, победившей рак щитовидной железы</h2>
+        <p>Елена приехала в Белоостров, когда ей сказали, что голос восстановить не удастся. Наша междисциплинарная команда применила методы нейромониторинга во время операции...</p>
+        <a href="#" class="read-more">Читать полную историю →</a>
+      </div>
+      <div class="expert-footer">
+        <div class="expert-info">
+          <div class="expert-photo">ПР</div>
+          <div>
+            <p class="expert-name">Павел Олегович Румянцев</p>
+            <p class="expert-pos">Лечащий врач проекта «Сила примера»</p>
+          </div>
+        </div>
+        <button class="btn-book">Нужна консультация</button>
+      </div>
+    </div>
 
-    // Drawer (mobile)
-    const burger = document.getElementById("burger");
-    const drawer = document.getElementById("drawer");
-    const closeDrawer = document.getElementById("closeDrawer");
-    const openDrawer = () => { drawer.classList.add("open"); drawer.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; };
-    const hideDrawer = () => { drawer.classList.remove("open"); drawer.setAttribute("aria-hidden","true"); document.body.style.overflow=""; };
-    burger.addEventListener("click", openDrawer);
-    closeDrawer.addEventListener("click", hideDrawer);
-    drawer.addEventListener("click", (e) => { if (e.target === drawer) hideDrawer(); });
-    drawer.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", hideDrawer));
-    window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideDrawer(); });
+  </section>
+</div>
 
-    // Scroll progress bar
-    const progress = document.getElementById("progress");
-    const onScroll = () => {
-      const h = document.documentElement;
-      const max = h.scrollHeight - h.clientHeight;
-      const p = max > 0 ? (h.scrollTop / max) : 0;
-      progress.style.transform = `scaleX(${p})`;
-    };
-    document.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
-    // Scroll-spy: active nav link
-    const sections = Array.from(document.querySelectorAll("main section[id]"));
-    const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
-    const setCurrent = (id) => {
-      navLinks.forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + id ? "true" : "false"));
-    };
-
-    const spy = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setCurrent(visible.target.id);
-    }, { rootMargin: "-30% 0px -60% 0px", threshold: [0.05, 0.15, 0.3, 0.5] });
-
-    sections.forEach(s => spy.observe(s));
-    setCurrent("about"); // initial fallback
-
-    // Form: no backend => graceful UX (копирует текст заявки)
-    const form = document.getElementById("leadForm");
-    const status = document.getElementById("formStatus");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const payload =
-        `Заявка с сайта\n` +
-        `Имя: ${data.get("name") || "-"}\n` +
-        `Контакт: ${data.get("contact") || "-"}\n` +
-        `Сообщение: ${data.get("msg") || "-"}`;
-
-      try{
-        await navigator.clipboard.writeText(payload);
-        status.textContent = "Готово! Текст заявки скопирован. Вставьте в Telegram/WhatsApp и отправьте мне 🙂";
-      }catch(err){
-        status.textContent = "Почти! Не удалось скопировать автоматически. Просто напишите мне в мессенджер — я отвечу.";
-      }
-    });
-
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
