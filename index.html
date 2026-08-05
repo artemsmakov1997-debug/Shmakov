@@ -968,6 +968,284 @@
       .map-shell { min-height: 520px; }
     }
 
+
+    /* Modern map refresh */
+    .map-section { padding-top: 72px; }
+    .map-heading { margin-bottom: 20px; }
+    .map-heading h2 { letter-spacing: -.055em; }
+
+    .map-shell {
+      min-height: 660px;
+      border: 1px solid rgba(11,16,15,.09);
+      border-radius: 34px;
+      background: #e9f0ee;
+      box-shadow: 0 28px 80px rgba(18,35,32,.14), 0 4px 14px rgba(18,35,32,.06);
+    }
+
+    .map-shell::before {
+      z-index: 8;
+      background:
+        linear-gradient(180deg, rgba(12,24,22,.18) 0%, rgba(12,24,22,0) 19%),
+        linear-gradient(0deg, rgba(12,24,22,.12) 0%, rgba(12,24,22,0) 18%);
+    }
+
+    .map-shell::after {
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.72), inset 0 0 50px rgba(11,16,15,.035);
+    }
+
+    #map { background: #e9f0ee; }
+    #map .leaflet-tile-pane { filter: saturate(.76) contrast(.98) brightness(1.035); }
+
+    .map-ui {
+      left: 18px;
+      top: 18px;
+      right: 18px;
+      gap: 8px;
+      max-width: calc(100% - 36px);
+    }
+
+    .map-badge, .map-filter {
+      min-height: 44px;
+      padding: 0 17px;
+      border: 1px solid rgba(11,16,15,.09);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 28px rgba(18,35,32,.11);
+      font-size: 12px;
+      letter-spacing: -.01em;
+      backdrop-filter: blur(16px) saturate(1.15);
+    }
+
+    .map-badge {
+      background: rgba(11,16,15,.92);
+      color: var(--white);
+      border-color: rgba(255,255,255,.08);
+    }
+
+    .map-filter:hover { transform: translateY(-2px); background: #fff; }
+    .map-filter.is-active {
+      background: var(--teal);
+      border-color: rgba(7,155,150,.46);
+      box-shadow: 0 12px 28px rgba(7,155,150,.26);
+    }
+
+    .fallback-grid { stroke: rgba(11,16,15,.035); }
+    .fallback-boundary { stroke: rgba(11,16,15,.16); stroke-dasharray: 7 12; }
+    .fallback-building { fill: rgba(255,255,255,.7); stroke: rgba(11,16,15,.055); }
+    .fallback-park { fill: rgba(22,185,178,.17); }
+    .fallback-water { fill: rgba(89,158,187,.16); }
+
+    .fallback-pin,
+    .initiative-icon-inner {
+      width: 46px;
+      height: 46px;
+      border: 3px solid rgba(255,255,255,.98);
+      border-radius: 50%;
+      background: rgba(11,16,15,.94);
+      box-shadow: 0 12px 26px rgba(11,16,15,.22), 0 0 0 1px rgba(11,16,15,.08);
+    }
+
+    .fallback-pin { transform: translate(-50%, -50%); }
+    .fallback-pin:hover, .fallback-pin:focus-visible {
+      background: var(--teal-dark);
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    .fallback-pin::after {
+      inset: -7px;
+      border: 2px solid rgba(22,185,178,.36);
+      border-radius: 50%;
+    }
+
+    .fallback-pin span,
+    .initiative-icon-inner span { transform: none; }
+
+    .initiative-icon-inner { transform: none; }
+
+    .fallback-popup,
+    .leaflet-popup-content-wrapper {
+      border: 1px solid rgba(11,16,15,.08) !important;
+      border-radius: 26px !important;
+      background: rgba(255,255,255,.985) !important;
+      box-shadow: 0 28px 70px rgba(11,16,15,.22) !important;
+    }
+
+    .popup-photo-wrap { aspect-ratio: 16 / 9; }
+    .popup-photo-badge, .popup-place { min-height: 32px; }
+    .popup-body { padding: 18px 19px 19px; }
+    .popup-card h3 { font-size: 23px; line-height: 1.04; }
+    .popup-card p { margin-top: 11px; font-size: 13px; line-height: 1.5; }
+
+    .popup-meta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 17px;
+      padding-top: 14px;
+    }
+
+    .popup-meta > span {
+      color: #59615d;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .popup-vote {
+      width: 100%;
+      min-height: 50px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 0 17px;
+      border: 1px solid rgba(7,155,150,.5);
+      border-radius: 15px;
+      background: var(--teal);
+      color: var(--ink);
+      box-shadow: 0 12px 26px rgba(7,155,150,.24);
+      font-size: 13px;
+      font-weight: 950;
+      text-align: left;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .popup-vote:hover:not(:disabled) {
+      background: #22cbc3;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(7,155,150,.31);
+    }
+
+    .popup-vote-icon {
+      width: 29px;
+      height: 29px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.58);
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .popup-vote strong {
+      min-width: 36px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(11,16,15,.1);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .popup-vote.is-supported,
+    .popup-vote:disabled {
+      border-color: rgba(11,16,15,.12);
+      background: #eef3f1;
+      color: #47504c;
+      box-shadow: none;
+      cursor: default;
+      opacity: 1;
+    }
+
+    .popup-vote.is-supported .popup-vote-icon { background: var(--ink); color: var(--white); }
+
+    .leaflet-control-zoom {
+      overflow: hidden;
+      border: 1px solid rgba(11,16,15,.08) !important;
+      border-radius: 15px !important;
+      background: rgba(255,255,255,.94) !important;
+      box-shadow: 0 12px 30px rgba(11,16,15,.14) !important;
+      backdrop-filter: blur(14px);
+    }
+
+    .leaflet-control-zoom a {
+      width: 44px !important;
+      height: 44px !important;
+      line-height: 44px !important;
+      background: transparent !important;
+      font-size: 20px !important;
+    }
+
+    .leaflet-control-attribution {
+      border-radius: 9px 0 0 0;
+      background: rgba(255,255,255,.78) !important;
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 620px) {
+      .map-section { padding: 44px 0 60px; }
+      .map-heading { margin-bottom: 16px; }
+      .map-heading h2 { font-size: 38px; line-height: .94; }
+      .map-heading p { font-size: 13px; line-height: 1.48; }
+
+      .map-shell {
+        min-height: 520px;
+        height: min(72svh, 650px);
+        border-radius: 24px;
+        box-shadow: 0 18px 46px rgba(11,16,15,.14);
+      }
+
+      .map-ui {
+        left: 9px;
+        top: 9px;
+        right: 9px;
+        max-width: calc(100% - 18px);
+        gap: 7px;
+        padding: 1px 20px 5px 1px;
+      }
+
+      .map-badge, .map-filter {
+        min-height: 43px;
+        padding-inline: 14px;
+        font-size: 11px;
+        box-shadow: 0 8px 22px rgba(18,35,32,.11);
+      }
+
+      .fallback-pin,
+      .initiative-icon-inner { width: 42px; height: 42px; }
+
+      .fallback-popup {
+        left: 8px !important;
+        right: 8px !important;
+        bottom: 8px !important;
+        top: auto !important;
+        width: auto !important;
+        max-height: calc(100% - 76px);
+        padding: 0 !important;
+        overflow: auto;
+        border-radius: 23px !important;
+      }
+
+      .popup-photo-wrap { aspect-ratio: 16 / 8.6; }
+      .popup-body { padding: 15px 16px 16px; }
+      .popup-card h3 { font-size: 20px; }
+      .popup-card p { font-size: 12px; line-height: 1.45; }
+      .popup-meta { gap: 10px; margin-top: 14px; padding-top: 12px; }
+      .popup-vote { min-height: 52px; border-radius: 14px; }
+
+      .leaflet-popup-content-wrapper {
+        max-width: calc(100vw - 26px) !important;
+        border-radius: 23px !important;
+      }
+
+      .leaflet-popup-content {
+        width: min(330px, calc(100vw - 28px)) !important;
+        margin: 0 !important;
+      }
+
+      .leaflet-popup-content-wrapper .popup-card {
+        max-height: min(64svh, 520px);
+        overflow: auto;
+      }
+
+      .leaflet-control-zoom { margin-right: 10px !important; margin-bottom: 10px !important; }
+      .leaflet-control-zoom a { width: 42px !important; height: 42px !important; line-height: 42px !important; }
+    }
+
+    @media (max-width: 380px) {
+      .map-heading h2 { font-size: 34px; }
+      .map-shell { min-height: 500px; height: 70svh; }
+      .map-badge, .map-filter { padding-inline: 12px; }
+      .popup-photo-wrap { aspect-ratio: 16 / 8; }
+    }
+
   </style>
 </head>
 <body>
@@ -1168,9 +1446,35 @@
         children: 'photos/default-children.jpg'
       };
 
+      const voteStorageKey = 'city-initiatives-supported-v1';
+
+      function loadSupportedInitiatives() {
+        try {
+          const stored = JSON.parse(localStorage.getItem(voteStorageKey) || '[]');
+          return new Set(Array.isArray(stored) ? stored.map(String) : []);
+        } catch (error) {
+          return new Set();
+        }
+      }
+
+      const supportedInitiativeIds = loadSupportedInitiatives();
+
+      function hasSupported(id) {
+        return supportedInitiativeIds.has(String(id));
+      }
+
+      function saveSupportedInitiatives() {
+        try {
+          localStorage.setItem(voteStorageKey, JSON.stringify([...supportedInitiativeIds]));
+        } catch (error) {
+          // Голос всё равно учитывается в текущей сессии, даже если хранилище браузера недоступно.
+        }
+      }
+
       initiatives.forEach(item => {
         item.image = `photos/initiative-${item.id}.jpg`;
         item.place = initiativePlaces[item.id] || 'Московский район';
+        if (hasSupported(item.id)) item.votes += 1;
       });
 
       let activeFilter = 'all';
@@ -1196,6 +1500,23 @@
       const categoryInput = document.getElementById('initiativeCategory');
       const toast = document.getElementById('toast');
 
+      function voteButtonHTML(item) {
+        const supported = hasSupported(item.id);
+        const label = supported ? 'Вы поддержали' : 'Поддержать инициативу';
+        return `
+          <button
+            class="popup-vote${supported ? ' is-supported' : ''}"
+            type="button"
+            data-vote-id="${item.id}"
+            aria-pressed="${supported}"
+            ${supported ? 'disabled' : ''}
+          >
+            <span class="popup-vote-icon" aria-hidden="true">♥</span>
+            <span>${label}</span>
+            <strong>${item.votes}</strong>
+          </button>`;
+      }
+
       function popupHTML(item) {
         const image = item.image || categoryPhotoMap[item.category] || categoryPhotoMap.transport;
         const place = item.place || 'Московский район';
@@ -1211,8 +1532,8 @@
               <h3>${escapeHTML(item.title)}</h3>
               <p>${escapeHTML(item.description)}</p>
               <div class="popup-meta">
-                <span>${item.when}</span>
-                <button class="popup-vote" type="button" data-vote-id="${item.id}">↑ ${item.votes} поддержали</button>
+                <span>Опубликовано: ${item.when}</span>
+                ${voteButtonHTML(item)}
               </div>
             </div>
           </article>`;
@@ -1374,12 +1695,30 @@
         showToast('Инициатива для Московского района добавлена в демо-режиме');
       }
 
+      function updateVoteButtons(item) {
+        document.querySelectorAll(`[data-vote-id="${item.id}"]`).forEach(button => {
+          button.classList.add('is-supported');
+          button.disabled = true;
+          button.setAttribute('aria-pressed', 'true');
+          button.innerHTML = `
+            <span class="popup-vote-icon" aria-hidden="true">♥</span>
+            <span>Вы поддержали</span>
+            <strong>${item.votes}</strong>`;
+        });
+      }
+
       function vote(id) {
         const item = initiatives.find(entry => entry.id === Number(id));
         if (!item) return;
+        if (hasSupported(item.id)) {
+          showToast('Эту инициативу вы уже поддержали');
+          return;
+        }
+        supportedInitiativeIds.add(String(item.id));
+        saveSupportedInitiatives();
         item.votes += 1;
-        renderAll();
-        showToast('Спасибо — голос учтён');
+        updateVoteButtons(item);
+        showToast('Спасибо — ваш голос учтён');
       }
 
       document.querySelectorAll('.js-open-modal').forEach(button => button.addEventListener('click', openModal));
@@ -1441,11 +1780,12 @@
 
       function initLeaflet() {
         if (!window.L) return;
-        mapInstance = window.L.map('map', { zoomControl: false, scrollWheelZoom: false, tap: true }).setView([59.8525, 30.3225], 12.6);
+        mapInstance = window.L.map('map', { zoomControl: false, scrollWheelZoom: false, tap: true, zoomSnap: .5 }).setView([59.8525, 30.3225], 12.5);
         window.L.control.zoom({ position: 'bottomright' }).addTo(mapInstance);
-        leafletTileLayer = window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; OpenStreetMap',
+        leafletTileLayer = window.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          subdomains: 'abcd',
+          maxZoom: 20,
+          attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
           crossOrigin: true
         });
         let tileErrors = 0;
