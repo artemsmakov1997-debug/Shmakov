@@ -2025,7 +2025,7 @@
 
       function initLeaflet() {
         if (!window.L) return;
-        mapInstance = window.L.map('map', { zoomControl: false, scrollWheelZoom: false, tap: true, zoomSnap: .5 }).setView([59.8525, 30.3225], 12.5);
+        mapInstance = window.L.map('map', { attributionControl: false, zoomControl: false, scrollWheelZoom: false, tap: true, zoomSnap: .5 }).setView([59.8525, 30.3225], 12.5);
         window.L.control.zoom({ position: 'bottomright' }).addTo(mapInstance);
         leafletTileLayer = window.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
           subdomains: 'abcd',
