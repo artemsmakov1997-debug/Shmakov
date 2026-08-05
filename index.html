@@ -1248,6 +1248,117 @@
 
 
 
+    /* One-button category filter with a compact popover. */
+    .map-ui {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      overflow: visible;
+      mask-image: none;
+      -webkit-mask-image: none;
+      pointer-events: none;
+    }
+
+    .map-ui > * { pointer-events: auto; }
+
+    .map-filter-menu {
+      position: relative;
+      margin-left: auto;
+    }
+
+    .map-filter-toggle {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 15px;
+      border: 1px solid rgba(11,16,15,.09);
+      border-radius: 999px;
+      background: rgba(255,255,255,.94);
+      color: var(--ink);
+      box-shadow: 0 10px 28px rgba(18,35,32,.12);
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      backdrop-filter: blur(16px) saturate(1.15);
+      transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+    }
+
+    .map-filter-toggle:hover { transform: translateY(-2px); background: #fff; }
+    .map-filter-toggle[aria-expanded="true"] { background: var(--teal); box-shadow: 0 12px 28px rgba(7,155,150,.27); }
+
+    .map-filter-chevron {
+      font-size: 15px;
+      line-height: 1;
+      transition: transform .16s ease;
+    }
+
+    .map-filter-toggle[aria-expanded="true"] .map-filter-chevron { transform: rotate(180deg); }
+
+    .map-filter-dropdown {
+      position: absolute;
+      z-index: 20;
+      top: calc(100% + 9px);
+      right: 0;
+      width: min(238px, calc(100vw - 44px));
+      padding: 7px;
+      border: 1px solid rgba(11,16,15,.1);
+      border-radius: 17px;
+      background: rgba(255,255,255,.985);
+      box-shadow: 0 20px 48px rgba(11,16,15,.22);
+      backdrop-filter: blur(18px) saturate(1.12);
+    }
+
+    .map-filter-dropdown[hidden] { display: none; }
+
+    .map-filter-option {
+      width: 100%;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 11px;
+      background: transparent;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 850;
+      text-align: left;
+      cursor: pointer;
+      transition: background .14s ease, color .14s ease;
+    }
+
+    .map-filter-option:hover { background: rgba(22,185,178,.12); }
+    .map-filter-option.is-active {
+      background: var(--teal);
+      color: var(--ink);
+    }
+
+    @media (max-width: 620px) {
+      .map-ui {
+        left: 10px;
+        top: 10px;
+        right: 10px;
+        max-width: calc(100% - 20px);
+        padding: 0;
+        mask-image: none;
+        -webkit-mask-image: none;
+      }
+
+      .map-badge,
+      .map-filter-toggle {
+        min-height: 40px;
+        padding-inline: 12px;
+        font-size: 10px;
+      }
+
+      .map-filter-toggle { gap: 6px; }
+      .map-filter-dropdown { top: calc(100% + 7px); width: min(220px, calc(100vw - 40px)); }
+      .map-filter-option { min-height: 40px; font-size: 12px; }
+    }
+
+
+
     /* Compact mobile hero: less empty space, calmer primary action. */
     @media (max-width: 620px) {
       .hero {
@@ -1256,7 +1367,7 @@
       }
 
       .hero-content {
-        padding: 68px 0 42px;
+        padding: 36px 0 18px;
       }
 
       .hero-content::before {
@@ -1279,8 +1390,8 @@
 
       .hero-actions {
         width: min(310px, 88vw);
-        margin-top: 20px;
-        gap: 9px;
+        margin-top: 16px;
+        gap: 5px;
       }
 
       .button-hero {
@@ -1297,7 +1408,7 @@
       }
 
       .hero-map-link {
-        min-height: 32px;
+        min-height: 25px;
         font-size: 11px;
       }
 
@@ -1308,7 +1419,7 @@
 
     @media (max-width: 380px) {
       .hero-content {
-        padding: 58px 0 36px;
+        padding: 30px 0 14px;
       }
 
       .hero-actions {
@@ -1399,13 +1510,28 @@
           </div>
           <div id="map" aria-label="Интерактивная карта Московского района"></div>
 
-          <div class="map-ui" aria-label="Фильтры карты">
+          <div class="map-ui" aria-label="Управление картой">
             <span class="map-badge" id="mapCounter">7 инициатив</span>
-            <button class="map-filter is-active" type="button" data-filter="all">Все</button>
-            <button class="map-filter" type="button" data-filter="transport">Транспорт</button>
-            <button class="map-filter" type="button" data-filter="green">Зелень</button>
-            <button class="map-filter" type="button" data-filter="safety">Безопасность</button>
-            <button class="map-filter" type="button" data-filter="children">Для детей</button>
+            <div class="map-filter-menu" id="categoryFilterMenu">
+              <button
+                class="map-filter-toggle"
+                id="categoryFilterButton"
+                type="button"
+                aria-expanded="false"
+                aria-controls="categoryFilterDropdown"
+              >
+                <span aria-hidden="true">≡</span>
+                <span id="categoryFilterLabel">Все категории</span>
+                <span class="map-filter-chevron" aria-hidden="true">⌄</span>
+              </button>
+              <div class="map-filter-dropdown" id="categoryFilterDropdown" role="menu" hidden>
+                <button class="map-filter-option is-active" type="button" role="menuitemradio" aria-checked="true" data-filter="all">Все категории</button>
+                <button class="map-filter-option" type="button" role="menuitemradio" aria-checked="false" data-filter="transport">Транспорт</button>
+                <button class="map-filter-option" type="button" role="menuitemradio" aria-checked="false" data-filter="green">Зелень</button>
+                <button class="map-filter-option" type="button" role="menuitemradio" aria-checked="false" data-filter="safety">Безопасность</button>
+                <button class="map-filter-option" type="button" role="menuitemradio" aria-checked="false" data-filter="children">Для детей</button>
+              </div>
+            </div>
           </div>
           <div class="map-hint" id="mapHint">Нажмите на карте, чтобы выбрать место инициативы</div>
           <div class="map-source-note">Схема работает сразу · подробная карта подключается при наличии сети</div>
@@ -1574,6 +1700,10 @@
       const descriptionInput = document.getElementById('initiativeDescription');
       const districtInput = document.getElementById('initiativeDistrict');
       const categoryInput = document.getElementById('initiativeCategory');
+      const categoryFilterMenu = document.getElementById('categoryFilterMenu');
+      const categoryFilterButton = document.getElementById('categoryFilterButton');
+      const categoryFilterDropdown = document.getElementById('categoryFilterDropdown');
+      const categoryFilterLabel = document.getElementById('categoryFilterLabel');
       const toast = document.getElementById('toast');
 
       function voteButtonHTML(item) {
@@ -1621,6 +1751,24 @@
 
       function visibleInitiatives() {
         return initiatives.filter(item => activeFilter === 'all' || item.category === activeFilter);
+      }
+
+      function filterLabel(filter) {
+        return filter === 'all' ? 'Все категории' : (categoryNames[filter] || 'Категории');
+      }
+
+      function closeCategoryFilter() {
+        categoryFilterDropdown.hidden = true;
+        categoryFilterButton.setAttribute('aria-expanded', 'false');
+      }
+
+      function updateFilterUI() {
+        categoryFilterLabel.textContent = filterLabel(activeFilter);
+        document.querySelectorAll('.map-filter-option').forEach(option => {
+          const isActive = option.dataset.filter === activeFilter;
+          option.classList.toggle('is-active', isActive);
+          option.setAttribute('aria-checked', String(isActive));
+        });
       }
 
       function updateCounter() {
@@ -1765,7 +1913,8 @@
         locationTitle.textContent = 'Место пока не выбрано';
         locationText.textContent = 'Укажите точку на карте выбранного района';
         activeFilter = 'all';
-        document.querySelectorAll('.map-filter').forEach(button => button.classList.toggle('is-active', button.dataset.filter === 'all'));
+        updateFilterUI();
+        closeCategoryFilter();
         renderAll();
         closeModal();
         showToast('Инициатива для Московского района добавлена в демо-режиме');
@@ -1805,12 +1954,32 @@
       modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
       document.addEventListener('keydown', event => { if (event.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
 
-      document.querySelectorAll('.map-filter').forEach(button => {
-        button.addEventListener('click', () => {
-          activeFilter = button.dataset.filter;
-          document.querySelectorAll('.map-filter').forEach(item => item.classList.toggle('is-active', item === button));
+      categoryFilterButton.addEventListener('click', event => {
+        event.stopPropagation();
+        const willOpen = categoryFilterDropdown.hidden;
+        categoryFilterDropdown.hidden = !willOpen;
+        categoryFilterButton.setAttribute('aria-expanded', String(willOpen));
+      });
+
+      document.querySelectorAll('.map-filter-option').forEach(option => {
+        option.addEventListener('click', () => {
+          activeFilter = option.dataset.filter;
+          updateFilterUI();
+          closeCategoryFilter();
           renderAll();
+          categoryFilterButton.focus();
         });
+      });
+
+      document.addEventListener('click', event => {
+        if (!categoryFilterMenu.contains(event.target)) closeCategoryFilter();
+      });
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !categoryFilterDropdown.hidden) {
+          closeCategoryFilter();
+          categoryFilterButton.focus();
+        }
       });
 
       document.getElementById('fallbackMap').addEventListener('click', event => {
@@ -1887,6 +2056,7 @@
         setTimeout(() => mapInstance.invalidateSize(), 200);
       }
 
+      updateFilterUI();
       renderAll();
       loadLeaflet();
     })();
